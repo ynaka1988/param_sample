@@ -1,0 +1,18 @@
+
+void*をインクリメントするとどうなる？
+
+昨日帰り際に話題となったので。
+
+結果はコンパイラ次第なのですが、なんとgccでは「1」。
+理由はsizeof(void)が1だから、だそうです。
+"http://gcc.gnu.org/onlinedocs/gcc/Pointer-Arith.html"
+
+-Wallや-Wextraでも警告すら出ませんが、-pedanticだと下記の警告となります。
+work.c:7:5: warning: wrong type argument to increment [-Wpointer-arith]
+  ptr++;
+     ^~
+
+ちなみにclangだともっとわかりやすい文言で警告してくれます。
+work.c:7:5: warning: arithmetic on a pointer to void is a GNU extension [-Wpointer-arith]
+        ptr++;
+        ~~~^
